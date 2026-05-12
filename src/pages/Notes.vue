@@ -64,7 +64,7 @@ onMounted(async () => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .notes-page {
   min-height: 100vh;
   background: #f5f5f5;

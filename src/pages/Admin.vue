@@ -120,7 +120,7 @@ async function loadUsers() {
 onMounted(() => loadUsers())
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .admin-page { min-height: 100vh; background: #f5f5f5; }
 .header-bar { background: white; padding: 16px; display: flex; justify-content: space-between; align-items: center; font-size: 16px; font-weight: 600; }
 .user-list { padding: 12px; }

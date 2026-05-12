@@ -155,7 +155,7 @@ async function createEvent() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .home-page {
   min-height: 100vh;
   background: #f5f5f5;

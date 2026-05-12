@@ -72,7 +72,7 @@ function handleLogout() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .profile-page { min-height: 100vh; background: #f5f5f5; padding-bottom: 24px; }
 .profile-header {
   background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 100%);

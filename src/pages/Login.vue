@@ -107,7 +107,7 @@ function wechatLogin() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .login-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 100%);

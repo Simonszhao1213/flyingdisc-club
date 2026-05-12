@@ -60,7 +60,7 @@ onMounted(async () => {
 })
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .events-page { min-height: 100vh; background: #f5f5f5; padding-bottom: 80px; }
 .tab-header { background: white; padding-top: 12px; }
 .event-list { padding: 12px; }

@@ -74,7 +74,7 @@ async function cancelSignUp() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .event-detail { min-height: 100vh; background: #f5f5f5; }
 .event-hero { background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 100%); padding: 24px 16px; color: white; h1 { font-size: 24px; margin: 12px 0; } }
 .hero-info { display: flex; flex-direction: column; gap: 8px; .info-item { font-size: 15px; opacity: 0.9; } }

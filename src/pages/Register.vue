@@ -70,7 +70,7 @@ async function handleRegister() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .register-page {
   min-height: 100vh;
   background: #f5f5f5;

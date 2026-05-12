@@ -115,7 +115,7 @@ async function handleSubmit() {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .note-form-page { min-height: 100vh; background: #f5f5f5; padding-bottom: 24px; }
 .submit-area { margin: 24px 16px; }
 :deep(.van-radio-group) { flex-wrap: wrap; gap: 8px; }

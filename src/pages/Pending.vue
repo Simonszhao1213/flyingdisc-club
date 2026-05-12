@@ -29,7 +29,7 @@ const userStore = useUserStore()
 const { user } = userStore
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .pending-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 100%);
