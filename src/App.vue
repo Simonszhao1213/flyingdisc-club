@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <router-view />
+    <div class="app-container">
+      <router-view />
+    </div>
     <van-tabbar v-if="showTabbar" route fixed placeholder safe-area-inset-bottom>
       <van-tabbar-item to="/home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item to="/notes" icon="notes-o" v-if="canSeeNotes">笔记</van-tabbar-item>
@@ -25,6 +27,15 @@ const canSeeEvents = computed(() => userStore.user?.role !== 'trial_member' || u
 
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; background: #f5f5f5; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+  background: #f5f5f5;
+}
 #app { min-height: 100vh; }
+.app-container {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f5f5f5;
+}
 </style>

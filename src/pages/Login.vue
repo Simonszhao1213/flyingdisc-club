@@ -1,39 +1,41 @@
 <template>
   <div class="login-page">
-    <div class="logo-area">
-      <div class="logo">🥏</div>
-      <h1>飞盘俱乐部</h1>
-      <p>记录每一次成长</p>
-    </div>
-
-    <van-form @submit="handleLogin">
-      <van-cell-group inset>
-        <van-field
-          v-model="phone"
-          name="phone"
-          label="+86"
-          type="tel"
-          placeholder="请输入手机号"
-          :rules="[{ required: true, message: '请输入手机号' }]"
-        />
-        <van-field
-          v-model="password"
-          type="password"
-          label="密码"
-          placeholder="请输入密码"
-          :rules="[{ required: true, message: '请输入密码' }]"
-        />
-      </van-cell-group>
-
-      <div class="submit-area">
-        <van-button round block type="primary" native-type="submit" :loading="loading">
-          登录
-        </van-button>
+    <div class="login-container">
+      <div class="logo-area">
+        <img src="/logo.png" alt="logo" class="logo-img" />
+        <h1>飞盘俱乐部</h1>
+        <p>记录每一次成长</p>
       </div>
-    </van-form>
 
-    <div class="footer-links">
-      <span @click="$router.push('/register')">还没有账号？立即注册</span>
+      <van-form @submit="handleLogin">
+        <van-cell-group inset>
+          <van-field
+            v-model="phone"
+            name="phone"
+            label="+86"
+            type="tel"
+            placeholder="请输入手机号"
+            :rules="[{ required: true, message: '请输入手机号' }]"
+          />
+          <van-field
+            v-model="password"
+            type="password"
+            label="密码"
+            placeholder="请输入密码"
+            :rules="[{ required: true, message: '请输入密码' }]"
+          />
+        </van-cell-group>
+
+        <div class="submit-area">
+          <van-button round block type="primary" native-type="submit" :loading="loading">
+            登录
+          </van-button>
+        </div>
+      </van-form>
+
+      <div class="footer-links">
+        <span @click="$router.push('/register')">还没有账号？立即注册</span>
+      </div>
     </div>
   </div>
 </template>
@@ -84,22 +86,47 @@ async function handleLogin() {
   min-height: 100vh;
   background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 100%);
   padding: 60px 24px 24px;
+  display: flex;
+  justify-content: center;
+}
+.login-container {
+  width: 100%;
+  max-width: 420px;
 }
 .logo-area {
   text-align: center;
   color: white;
   margin-bottom: 48px;
-  .logo { font-size: 72px; margin-bottom: 12px; }
-  h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
-  p { font-size: 14px; opacity: 0.85; }
 }
-.submit-area { margin: 32px 16px; }
+.logo-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+.logo-area h1 {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: white;
+}
+.logo-area p {
+  font-size: 14px;
+  opacity: 0.85;
+}
+.submit-area {
+  margin: 32px 16px;
+}
 .footer-links {
   text-align: center;
   color: white;
   font-size: 14px;
   opacity: 0.9;
 }
-:deep(.van-cell-group--inset) { margin: 0 8px; }
-:deep(.van-field__label) { width: 40px; }
+:deep(.van-cell-group--inset) {
+  margin: 0 8px;
+}
+:deep(.van-field__label) {
+  width: 40px;
+}
 </style>
