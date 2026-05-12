@@ -7,7 +7,7 @@
  */
 
 // Vercel 部署后的地址（部署完成后在这里填入）
-const API_BASE = 'https://flyingdisc-club.vercel.app/api'
+const API_BASE = 'https://flyingdisc-h5.vercel.app/api'
 
 async function api(action, collection, body = {}) {
   try {
