@@ -17,20 +17,12 @@
           :rules="[{ required: true, message: '请输入手机号' }]"
         />
         <van-field
-          v-model="code"
-          name="code"
-          center
-          clearable
-          label="验证码"
-          placeholder="请输入验证码"
-          :rules="[{ required: true, message: '请输入验证码' }]"
-        >
-          <template #button>
-            <span class="send-code" @click="sendCode" :class="{ disabled: countdown > 0 }">
-              {{ countdown > 0 ? `${countdown}s` : '发送验证码' }}
-            </span>
-          </template>
-        </van-field>
+          v-model="password"
+          type="password"
+          label="密码"
+          placeholder="请输入密码"
+          :rules="[{ required: true, message: '请输入密码' }]"
+        />
       </van-cell-group>
 
       <div class="submit-area">
@@ -42,13 +34,6 @@
 
     <div class="footer-links">
       <span @click="$router.push('/register')">还没有账号？立即注册</span>
-    </div>
-
-    <div class="wechat-login">
-      <van-divider>其他登录方式</van-divider>
-      <van-button block @click="wechatLogin" class="wechat-btn">
-        微信一键登录
-      </van-button>
     </div>
   </div>
 </template>
@@ -64,29 +49,20 @@ const router = useRouter()
 const userStore = useUserStore()
 
 const phone = ref('')
-const code = ref('')
+const password = ref('')
 const loading = ref(false)
-const countdown = ref(0)
-
-async function sendCode() {
-  if (countdown.value > 0) return
-  countdown.value = 60
-  const t = setInterval(() => { countdown.value--; if (countdown.value <= 0) clearInterval(t) }, 1000)
-  // 演示用：验证码固定为 666666
-  showToast('演示模式：验证码为 666666')
-}
 
 async function handleLogin() {
   loading.value = true
   try {
-    // 演示模式：验证码 666666 直接通过
-    if (code.value !== '666666') {
-      showToast('演示模式：请输入验证码 666666')
-      return
-    }
     const user = await loginUser(phone.value)
     if (!user) {
       showToast('用户不存在，请先注册')
+      return
+    }
+    // 演示模式：密码固定为 666666
+    if (password.value !== '666666') {
+      showToast('演示模式：请输入密码 666666')
       return
     }
     userStore.login(user)
@@ -101,42 +77,29 @@ async function handleLogin() {
     loading.value = false
   }
 }
-
-function wechatLogin() {
-  showToast('微信登录需配合微信开放平台')
-}
 </script>
 
-<style  scoped>
+<style scoped>
 .login-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 100%);
   padding: 60px 24px 24px;
-  .logo-area {
-    text-align: center;
-    color: white;
-    margin-bottom: 48px;
-    .logo { font-size: 72px; margin-bottom: 12px; }
-    h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
-    p { font-size: 14px; opacity: 0.85; }
-  }
-  .send-code { color: #FF6B35; font-size: 14px; &.disabled { color: #999; } }
-  .submit-area { margin: 32px 16px; }
-  .footer-links {
-    text-align: center;
-    color: white;
-    font-size: 14px;
-    opacity: 0.9;
-  }
-  .wechat-login {
-    margin-top: 48px;
-    .wechat-btn {
-      border: 1px solid rgba(255,255,255,0.4);
-      background: rgba(255,255,255,0.15);
-      color: white;
-    }
-  }
-  :deep(.van-cell-group--inset) { margin: 0 8px; }
-  :deep(.van-field__label) { width: 40px; }
 }
+.logo-area {
+  text-align: center;
+  color: white;
+  margin-bottom: 48px;
+  .logo { font-size: 72px; margin-bottom: 12px; }
+  h1 { font-size: 28px; font-weight: 600; margin-bottom: 8px; }
+  p { font-size: 14px; opacity: 0.85; }
+}
+.submit-area { margin: 32px 16px; }
+.footer-links {
+  text-align: center;
+  color: white;
+  font-size: 14px;
+  opacity: 0.9;
+}
+:deep(.van-cell-group--inset) { margin: 0 8px; }
+:deep(.van-field__label) { width: 40px; }
 </style>

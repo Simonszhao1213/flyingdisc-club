@@ -6,13 +6,7 @@
       <van-cell-group inset>
         <van-field v-model="form.name" label="姓名" placeholder="请输入真实姓名" :rules="[{ required: true, message: '请输入姓名' }]" />
         <van-field v-model="form.phone" type="tel" label="手机号" placeholder="用于登录" :rules="[{ required: true, message: '请输入手机号' }]" />
-        <van-field v-model="form.code" center clearable label="验证码" placeholder="验证码" :rules="[{ required: true, message: '请输入验证码' }]">
-          <template #button>
-            <span @click="sendCode" :class="{ disabled: countdown > 0 }" style="color:#FF6B35;font-size:14px">
-              {{ countdown > 0 ? `${countdown}s` : '发送验证码' }}
-            </span>
-          </template>
-        </van-field>
+        <van-field v-model="form.password" type="password" label="密码" placeholder="设置登录密码" :rules="[{ required: true, message: '请设置密码' }]" />
         <van-field name="position" label="场上位置">
           <template #input>
             <van-radio-group v-model="form.position" direction="horizontal">
@@ -45,16 +39,8 @@ import { showToast, showSuccessToast } from 'vant'
 import { registerUser } from '../api/db'
 
 const router = useRouter()
-const form = ref({ name: '', phone: '', code: '', position: 'mixed', referrer: '' })
+const form = ref({ name: '', phone: '', password: '', position: 'mixed', referrer: '' })
 const loading = ref(false)
-const countdown = ref(0)
-
-async function sendCode() {
-  if (countdown.value > 0) return
-  countdown.value = 60
-  const t = setInterval(() => { countdown.value--; if (countdown.value <= 0) clearInterval(t) }, 1000)
-  showToast('演示模式：验证码为 666666')
-}
 
 async function handleRegister() {
   loading.value = true
@@ -70,7 +56,7 @@ async function handleRegister() {
 }
 </script>
 
-<style  scoped>
+<style scoped>
 .register-page {
   min-height: 100vh;
   background: #f5f5f5;
