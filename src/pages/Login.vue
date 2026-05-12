@@ -71,17 +71,20 @@ const countdown = ref(0)
 async function sendCode() {
   if (countdown.value > 0) return
   countdown.value = 60
-  const timer = setInterval(() => {
-    countdown.value--
-    if (countdown.value <= 0) clearInterval(timer)
-  }, 1000)
-  showToast('验证码已发送')
+  const t = setInterval(() => { countdown.value--; if (countdown.value <= 0) clearInterval(t) }, 1000)
+  // 演示用：验证码固定为 666666
+  showToast('演示模式：验证码为 666666')
 }
 
 async function handleLogin() {
   loading.value = true
   try {
-    const user = await loginUser(phone.value, code.value)
+    // 演示模式：验证码 666666 直接通过
+    if (code.value !== '666666') {
+      showToast('演示模式：请输入验证码 666666')
+      return
+    }
+    const user = await loginUser(phone.value)
     if (!user) {
       showToast('用户不存在，请先注册')
       return

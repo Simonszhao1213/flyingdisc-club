@@ -53,7 +53,7 @@ async function sendCode() {
   if (countdown.value > 0) return
   countdown.value = 60
   const t = setInterval(() => { countdown.value--; if (countdown.value <= 0) clearInterval(t) }, 1000)
-  showToast('验证码已发送')
+  showToast('演示模式：验证码为 666666')
 }
 
 async function handleRegister() {
