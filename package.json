@@ -18,7 +18,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.0",
     "vite": "^5.0.0",
-    "@vercel/node": "^3.0.0",
-    "sass-embedded": "^1.69.0"
+    "@vercel/node": "^3.0.0"
   }
 }
