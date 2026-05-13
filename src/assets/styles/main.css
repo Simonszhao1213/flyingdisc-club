@@ -5,26 +5,29 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
 
-/* === Tiger Stripe Pattern SVG === */
+/* === CSS Variables - Dark Theme (Default) === */
 :root {
-  /* Tiger stripe pattern as data URI */
-  --tiger-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M0 30 Q15 20 30 30 T60 30' fill='none' stroke='rgba(255,107,53,0.03)' stroke-width='8'/%3E%3Cpath d='M0 45 Q15 35 30 45 T60 45' fill='none' stroke='rgba(255,107,53,0.025)' stroke-width='6'/%3E%3Cpath d='M0 15 Q15 5 30 15 T60 15' fill='none' stroke='rgba(255,107,53,0.02)' stroke-width='5'/%3E%3C/svg%3E");
+  /* Tiger stripe diagonal pattern - bold orange on dark */
+  --stripe-angle: -55deg;
+  --stripe-opacity: 0.06;
+  --stripe-width: 40px;
+  --stripe-color: #FF6B35;
   
   /* Colors - Dark */
-  --color-bg: #0a0a0a;
+  --color-bg: #090909;
   --color-surface: #141414;
   --color-surface-2: #1c1c1c;
-  --color-surface-3: #242424;
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-surface-3: #252525;
+  --color-border: rgba(255, 255, 255, 0.07);
+  --color-border-hover: rgba(255, 255, 255, 0.14);
   --color-orange: #FF6B35;
   --color-orange-light: #FF8F5E;
   --color-orange-dark: #cc4a1a;
   --color-orange-glow: rgba(255, 107, 53, 0.12);
   --color-orange-glow-strong: rgba(255, 107, 53, 0.25);
   --color-text: #ffffff;
-  --color-text-secondary: rgba(255, 255, 255, 0.5);
-  --color-text-muted: rgba(255, 255, 255, 0.25);
+  --color-text-secondary: rgba(255, 255, 255, 0.55);
+  --color-text-muted: rgba(255, 255, 255, 0.28);
   --color-success: #34d399;
   --color-warning: #fbbf24;
   --color-danger: #ef4444;
@@ -41,9 +44,9 @@
   --radius-2xl: 32px;
 
   /* Shadows */
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-orange: 0 8px 32px rgba(255, 107, 53, 0.2);
-  --shadow-glow: 0 0 40px rgba(255, 107, 53, 0.08);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-orange: 0 8px 40px rgba(255, 107, 53, 0.22);
+  --shadow-glow: 0 0 80px rgba(255, 107, 53, 0.08);
 
   /* Transitions */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -53,21 +56,22 @@
 /* === Light Theme === */
 @media (prefers-color-scheme: light) {
   :root {
-    --color-bg: #f8f7f4;
+    --color-bg: #faf9f7;
     --color-surface: #ffffff;
-    --color-surface-2: #f3f2ef;
-    --color-surface-3: #eae9e6;
-    --color-border: rgba(0, 0, 0, 0.06);
-    --color-border-hover: rgba(0, 0, 0, 0.12);
-    --color-orange-glow: rgba(255, 107, 53, 0.06);
-    --color-orange-glow-strong: rgba(255, 107, 53, 0.12);
-    --color-text: #1a1a1a;
-    --color-text-secondary: rgba(0, 0, 0, 0.5);
-    --color-text-muted: rgba(0, 0, 0, 0.25);
-    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
-    --shadow-orange: 0 8px 32px rgba(255, 107, 53, 0.12);
-    --shadow-glow: 0 0 40px rgba(255, 107, 53, 0.04);
-    --tiger-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M0 30 Q15 20 30 30 T60 30' fill='none' stroke='rgba(255,107,53,0.04)' stroke-width='8'/%3E%3Cpath d='M0 45 Q15 35 30 45 T60 45' fill='none' stroke='rgba(255,107,53,0.035)' stroke-width='6'/%3E%3Cpath d='M0 15 Q15 5 30 15 T60 15' fill='none' stroke='rgba(255,107,53,0.03)' stroke-width='5'/%3E%3C/svg%3E");
+    --color-surface-2: #f4f3f0;
+    --color-surface-3: #eceae6;
+    --color-border: rgba(0, 0, 0, 0.07);
+    --color-border-hover: rgba(0, 0, 0, 0.14);
+    --color-orange-glow: rgba(255, 107, 53, 0.08);
+    --color-orange-glow-strong: rgba(255, 107, 53, 0.15);
+    --color-text: #111111;
+    --color-text-secondary: rgba(0, 0, 0, 0.55);
+    --color-text-muted: rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.07);
+    --shadow-orange: 0 8px 40px rgba(255, 107, 53, 0.15);
+    --shadow-glow: 0 0 80px rgba(255, 107, 53, 0.05);
+    /* Tiger stripes more visible on light */
+    --stripe-opacity: 0.08;
   }
 }
 
@@ -94,70 +98,170 @@ body {
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Tiger stripe background pattern */
+/* ============================================
+   TIGER STRIPE BACKGROUND
+   Uses repeating conic gradient for authentic 
+   diagonal tiger-stripe look
+   ============================================ */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: var(--tiger-pattern);
-  pointer-events: none;
   z-index: 0;
-  opacity: 1;
+  pointer-events: none;
+  /* Authentic tiger stripes via conic gradient */
+  background: 
+    /* Ambient top glow */
+    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(255, 107, 53, 0.08) 0%, transparent 70%),
+    /* Tiger stripe pattern - repeating diagonal bands */
+    repeating-conic-gradient(
+      from calc(var(--stripe-angle)) at 50% 50%,
+      rgba(255, 107, 53, 0) 0deg,
+      rgba(255, 107, 53, 0) calc(var(--stripe-width) * 0.4),
+      rgba(255, 107, 53, var(--stripe-opacity)) calc(var(--stripe-width) * 0.4),
+      rgba(255, 107, 53, var(--stripe-opacity)) calc(var(--stripe-width) * 0.55),
+      rgba(255, 107, 53, 0) calc(var(--stripe-width) * 0.55),
+      rgba(255, 107, 53, 0) calc(var(--stripe-width) * 1)
+    );
+  background-size: 100% 100%, var(--stripe-width) var(--stripe-width);
 }
 
-/* Noise overlay for texture */
+/* Subtle grain texture overlay */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.02'/%3E%3C/svg%3E");
-  pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
+  opacity: 0.6;
 }
 
+/* ============================================
+   PAGE LEVEL - ensures content above patterns
+   ============================================ */
 #app {
   min-height: 100vh;
   position: relative;
   z-index: 1;
 }
 
-/* === Logo watermark in top-right === */
-.page-logo {
+/* ============================================
+   BRAND HEADER BAR
+   Persistent top bar with logo + wordmark
+   ============================================ */
+.brand-bar {
   position: fixed;
-  top: 16px;
-  right: 16px;
-  width: 36px;
-  height: 36px;
-  z-index: 100;
-  opacity: 0.15;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: linear-gradient(
+    180deg,
+    rgba(var(--bg-r, 9), var(--bg-g, 9), var(--bg-b, 9), 0.95) 0%,
+    rgba(var(--bg-r, 9), var(--bg-g, 9), var(--bg-b, 9), 0.80) 60%,
+    transparent 100%
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   pointer-events: none;
-  transition: opacity 0.3s ease;
 }
 
-.page-logo:hover {
-  opacity: 0.3;
+.brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
 }
 
-.page-logo img {
+.brand-logo-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.4));
+}
+
+.brand-logo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.brand-logo-name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: var(--color-text);
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.brand-logo-sub {
+  font-size: 9px;
+  color: var(--color-text-secondary);
+  letter-spacing: 1px;
+  font-weight: 400;
+}
+
+.brand-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border);
+}
+
+.brand-badge {
+  font-size: 11px;
+  color: var(--color-orange);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   LOGO WATERMARK (top-right, decorative)
+   ============================================ */
+.logo-watermark {
+  position: fixed;
+  top: 8px;
+  right: 8px;
+  z-index: 999;
+  width: 52px;
+  height: 52px;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.logo-watermark img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.3));
 }
 
-/* === Typography === */
+/* ============================================
+   Typography
+   ============================================ */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 700;
   line-height: 1.2;
 }
 
-/* === Scrollbar === */
+/* ============================================
+   Scrollbar
+   ============================================ */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--color-border-hover); border-radius: 2px; }
 
-/* === Utility Classes === */
+/* ============================================
+   Utility
+   ============================================ */
 .container {
   max-width: 480px;
   margin: 0 auto;
@@ -168,7 +272,9 @@ h1, h2, h3, h4 {
 .text-muted { color: var(--color-text-muted); }
 .text-secondary { color: var(--color-text-secondary); }
 
-/* === Animations === */
+/* ============================================
+   Animations
+   ============================================ */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
@@ -176,19 +282,18 @@ h1, h2, h3, h4 {
 
 @keyframes pulse-glow {
   0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.25; }
+  50% { opacity: 0.28; }
 }
 
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
 
 .animate-in {
   animation: fadeInUp 0.6s var(--ease-out) both;
 }
 
-/* Stagger delays */
 .delay-1 { animation-delay: 0.05s; }
 .delay-2 { animation-delay: 0.1s; }
 .delay-3 { animation-delay: 0.15s; }
@@ -196,12 +301,14 @@ h1, h2, h3, h4 {
 .delay-5 { animation-delay: 0.25s; }
 .delay-6 { animation-delay: 0.3s; }
 
-/* === Vant Overrides === */
+/* ============================================
+   Vant Overrides
+   ============================================ */
 .van-tabbar {
   background: var(--color-surface) !important;
   border-top: 1px solid var(--color-border) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
 }
 
 .van-tabbar-item {
@@ -223,6 +330,7 @@ h1, h2, h3, h4 {
   font-family: var(--font-body) !important;
   font-weight: 600 !important;
   border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-orange) !important;
 }
 
 .van-button {
@@ -235,11 +343,16 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-md) !important;
   margin-bottom: 8px !important;
   font-family: var(--font-body) !important;
+  border: 1px solid var(--color-border) !important;
 }
 
 .van-cell-group--inset {
   margin: 0 !important;
   background: transparent !important;
+}
+
+.van-cell-group--inset .van-cell {
+  margin-bottom: 6px !important;
 }
 
 .van-field__label {
@@ -260,6 +373,7 @@ h1, h2, h3, h4 {
   background: var(--color-surface) !important;
   border-radius: var(--radius-xl) !important;
   border: 1px solid var(--color-border) !important;
+  box-shadow: var(--shadow-card) !important;
 }
 
 .van-dialog__header {
@@ -336,10 +450,6 @@ h1, h2, h3, h4 {
   border-color: var(--color-orange) !important;
 }
 
-.van-radio {
-  margin-right: 0;
-}
-
 .van-nav-bar {
   background: transparent !important;
 }
@@ -359,4 +469,21 @@ h1, h2, h3, h4 {
 
 .van-rate__icon--full {
   color: var(--color-orange) !important;
+}
+
+.van-tab {
+  color: var(--color-text-secondary) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-tab--active {
+  color: var(--color-orange) !important;
+}
+
+.van-tabs__nav {
+  background: transparent !important;
+}
+
+.van-tabs__line {
+  background: var(--color-orange) !important;
 }
