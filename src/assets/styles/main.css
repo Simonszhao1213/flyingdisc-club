@@ -1,13 +1,13 @@
 /* ============================================
    THE BLACK TIGERS - Design System
-   Dark Athletic Theme
+   Adaptive Light/Dark Theme
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
 
-/* === CSS Variables === */
+/* === CSS Variables - Dark Theme (Default) === */
 :root {
-  /* Colors */
+  /* Colors - Dark */
   --color-bg: #0a0a0a;
   --color-surface: #141414;
   --color-surface-2: #1c1c1c;
@@ -24,6 +24,7 @@
   --color-text-muted: rgba(255, 255, 255, 0.25);
   --color-success: #34d399;
   --color-warning: #fbbf24;
+  --color-danger: #ef4444;
 
   /* Typography */
   --font-display: 'Syne', sans-serif;
@@ -46,6 +47,59 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* === Light Theme (Browser Preference) === */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #f8f7f4;
+    --color-surface: #ffffff;
+    --color-surface-2: #f3f2ef;
+    --color-surface-3: #eae9e6;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-border-hover: rgba(0, 0, 0, 0.15);
+    --color-orange-glow: rgba(255, 107, 53, 0.1);
+    --color-orange-glow-strong: rgba(255, 107, 53, 0.2);
+    --color-text: #1a1a1a;
+    --color-text-secondary: rgba(0, 0, 0, 0.5);
+    --color-text-muted: rgba(0, 0, 0, 0.3);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --shadow-orange: 0 8px 32px rgba(255, 107, 53, 0.15);
+  }
+}
+
+/* Force light theme (optional) */
+[data-theme="light"] {
+  --color-bg: #f8f7f4;
+  --color-surface: #ffffff;
+  --color-surface-2: #f3f2ef;
+  --color-surface-3: #eae9e6;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(0, 0, 0, 0.15);
+  --color-orange-glow: rgba(255, 107, 53, 0.1);
+  --color-orange-glow-strong: rgba(255, 107, 53, 0.2);
+  --color-text: #1a1a1a;
+  --color-text-secondary: rgba(0, 0, 0, 0.5);
+  --color-text-muted: rgba(0, 0, 0, 0.3);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-orange: 0 8px 32px rgba(255, 107, 53, 0.15);
+}
+
+/* Force dark theme */
+[data-theme="dark"] {
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-2: #1c1c1c;
+  --color-surface-3: #242424;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-orange-glow: rgba(255, 107, 53, 0.15);
+  --color-orange-glow-strong: rgba(255, 107, 53, 0.3);
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.5);
+  --color-text-muted: rgba(255, 255, 255, 0.25);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-orange: 0 8px 32px rgba(255, 107, 53, 0.25);
+}
+
 /* === Reset & Base === */
 * {
   margin: 0;
@@ -66,9 +120,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Noise texture overlay */
+/* Noise texture overlay - subtle, works in both themes */
 body::before {
   content: '';
   position: fixed;
@@ -76,7 +131,11 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.4;
+  opacity: 0.35;
+}
+
+@media (prefers-color-scheme: light) {
+  body::before { opacity: 0.5; }
 }
 
 #app {
@@ -133,11 +192,6 @@ h1, h2, h3, h4 {
   50% { transform: translateY(-6px); }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
 .animate-in {
   animation: fadeInUp 0.6s var(--ease-out) both;
 }
@@ -150,11 +204,12 @@ h1, h2, h3, h4 {
 .delay-5 { animation-delay: 0.25s; }
 .delay-6 { animation-delay: 0.3s; }
 
-/* === Vant Overrides === */
-/* Remove default Vant styles that look generic */
+/* === Vant Overrides - Adaptive === */
 .van-tabbar {
   background: var(--color-surface) !important;
   border-top: 1px solid var(--color-border) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
 }
 
 .van-tabbar-item {
@@ -275,11 +330,6 @@ h1, h2, h3, h4 {
   border-radius: var(--radius-md) !important;
 }
 
-.van-radio-group {
-  display: flex;
-  gap: 12px;
-}
-
 .van-radio__label {
   color: var(--color-text-secondary) !important;
   font-family: var(--font-body) !important;
@@ -294,7 +344,29 @@ h1, h2, h3, h4 {
   border-color: var(--color-orange) !important;
 }
 
-/* Radio custom */
 .van-radio {
   margin-right: 0;
+}
+
+/* Nav bar overrides */
+.van-nav-bar {
+  background: transparent !important;
+}
+
+.van-nav-bar__title {
+  color: var(--color-text) !important;
+  font-family: var(--font-display) !important;
+}
+
+.van-nav-bar__arrow {
+  color: var(--color-text) !important;
+}
+
+/* Rate widget */
+.van-rate__icon {
+  color: var(--color-border-hover) !important;
+}
+
+.van-rate__icon--full {
+  color: var(--color-orange) !important;
 }
