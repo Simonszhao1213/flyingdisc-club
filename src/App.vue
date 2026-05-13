@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <!-- Logo watermark in top-right -->
+    <div class="page-logo">
+      <img src="/logo.png" alt="Black Tigers" />
+    </div>
+
     <div class="app-container">
       <router-view v-slot="{ Component }">
         <transition :name="transitionName" mode="out-in">
@@ -10,31 +15,31 @@
     <van-tabbar v-if="showTabbar" route fixed placeholder safe-area-inset-bottom class="tabbar">
       <van-tabbar-item to="/home" icon-prefix="icon" class="tab-item">
         <template #icon>
-          <span class="iconfont-home">🏠</span>
+          <span class="icon-emoji">🏠</span>
         </template>
         首页
       </van-tabbar-item>
       <van-tabbar-item to="/notes" icon-prefix="icon" v-if="canSeeNotes" class="tab-item">
         <template #icon>
-          <span class="iconfont-home">📝</span>
+          <span class="icon-emoji">📝</span>
         </template>
         笔记
       </van-tabbar-item>
       <van-tabbar-item to="/events" icon-prefix="icon" v-if="canSeeEvents" class="tab-item">
         <template #icon>
-          <span class="iconfont-home">📅</span>
+          <span class="icon-emoji">📅</span>
         </template>
         活动
       </van-tabbar-item>
       <van-tabbar-item to="/admin" icon-prefix="icon" v-if="isAdmin" class="tab-item">
         <template #icon>
-          <span class="iconfont-home">⚡</span>
+          <span class="icon-emoji">⚡</span>
         </template>
         审批
       </van-tabbar-item>
       <van-tabbar-item to="/profile" icon-prefix="icon" class="tab-item">
         <template #icon>
-          <span class="iconfont-home">👤</span>
+          <span class="icon-emoji">👤</span>
         </template>
         我的
       </van-tabbar-item>
@@ -59,7 +64,33 @@ const transitionName = computed(() => route.meta?.transition || 'slide')
 </script>
 
 <style>
-/* Global styles are in main.css */
+/* Logo watermark positioning */
+.page-logo {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  z-index: 1000;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.page-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: var(--logo-filter, none);
+}
+
+/* Dark mode: slightly brighten logo */
+@media (prefers-color-scheme: dark) {
+  .page-logo {
+    opacity: 0.18;
+  }
+}
+
+/* Tabbar */
 .tabbar {
   backdrop-filter: blur(20px) !important;
   -webkit-backdrop-filter: blur(20px) !important;
@@ -69,7 +100,7 @@ const transitionName = computed(() => route.meta?.transition || 'slide')
   font-size: 11px !important;
 }
 
-.iconfont-home {
+.icon-emoji {
   font-size: 20px;
 }
 
