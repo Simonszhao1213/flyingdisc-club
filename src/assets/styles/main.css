@@ -1,30 +1,23 @@
 /* ============================================
-   THE BLACK TIGERS - Design System
-   Adaptive Light/Dark Theme
+   THE BLACK TIGERS - Design System v3
+   Bold Athletic Dark Theme with Tiger Identity
    ============================================ */
 
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
 
-/* === CSS Variables - Dark Theme (Default) === */
+/* === CSS Variables === */
 :root {
-  /* Tiger stripe diagonal pattern - bold orange on dark */
-  --stripe-angle: -55deg;
-  --stripe-opacity: 0.06;
-  --stripe-width: 40px;
-  --stripe-color: #FF6B35;
-  
-  /* Colors - Dark */
-  --color-bg: #090909;
-  --color-surface: #141414;
-  --color-surface-2: #1c1c1c;
+  --color-bg: #080808;
+  --color-surface: #111111;
+  --color-surface-2: #1a1a1a;
   --color-surface-3: #252525;
-  --color-border: rgba(255, 255, 255, 0.07);
-  --color-border-hover: rgba(255, 255, 255, 0.14);
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
   --color-orange: #FF6B35;
   --color-orange-light: #FF8F5E;
-  --color-orange-dark: #cc4a1a;
-  --color-orange-glow: rgba(255, 107, 53, 0.12);
-  --color-orange-glow-strong: rgba(255, 107, 53, 0.25);
+  --color-orange-dark: #dd4a10;
+  --color-orange-glow: rgba(255, 107, 53, 0.1);
+  --color-orange-glow-strong: rgba(255, 107, 53, 0.2);
   --color-text: #ffffff;
   --color-text-secondary: rgba(255, 255, 255, 0.55);
   --color-text-muted: rgba(255, 255, 255, 0.28);
@@ -32,114 +25,62 @@
   --color-warning: #fbbf24;
   --color-danger: #ef4444;
 
-  /* Typography */
   --font-display: 'Syne', sans-serif;
   --font-body: 'Outfit', sans-serif;
 
-  /* Spacing */
   --radius-sm: 8px;
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 24px;
-  --radius-2xl: 32px;
 
-  /* Shadows */
-  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.5);
-  --shadow-orange: 0 8px 40px rgba(255, 107, 53, 0.22);
-  --shadow-glow: 0 0 80px rgba(255, 107, 53, 0.08);
+  --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.6);
+  --shadow-orange: 0 8px 40px rgba(255, 107, 53, 0.25);
+  --shadow-glow: 0 0 100px rgba(255, 107, 53, 0.06);
 
-  /* Transitions */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-/* === Light Theme === */
-@media (prefers-color-scheme: light) {
-  :root {
-    --color-bg: #faf9f7;
-    --color-surface: #ffffff;
-    --color-surface-2: #f4f3f0;
-    --color-surface-3: #eceae6;
-    --color-border: rgba(0, 0, 0, 0.07);
-    --color-border-hover: rgba(0, 0, 0, 0.14);
-    --color-orange-glow: rgba(255, 107, 53, 0.08);
-    --color-orange-glow-strong: rgba(255, 107, 53, 0.15);
-    --color-text: #111111;
-    --color-text-secondary: rgba(0, 0, 0, 0.55);
-    --color-text-muted: rgba(0, 0, 0, 0.3);
-    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.07);
-    --shadow-orange: 0 8px 40px rgba(255, 107, 53, 0.15);
-    --shadow-glow: 0 0 80px rgba(255, 107, 53, 0.05);
-    /* Tiger stripes more visible on light */
-    --stripe-opacity: 0.08;
-  }
-}
+/* === Reset === */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* === Reset & Base === */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   font-family: var(--font-body);
   background: var(--color-bg);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   overflow-x: hidden;
-  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* ============================================
-   TIGER STRIPE BACKGROUND
-   Uses repeating conic gradient for authentic 
-   diagonal tiger-stripe look
+   FULL-PAGE TIGER STRIPE BACKGROUND
+   Uses layered SVG patterns for maximum compatibility
    ============================================ */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  /* Authentic tiger stripes via conic gradient */
-  background: 
-    /* Ambient top glow */
-    radial-gradient(ellipse 80% 40% at 50% -10%, rgba(255, 107, 53, 0.08) 0%, transparent 70%),
-    /* Tiger stripe pattern - repeating diagonal bands */
-    repeating-conic-gradient(
-      from calc(var(--stripe-angle)) at 50% 50%,
-      rgba(255, 107, 53, 0) 0deg,
-      rgba(255, 107, 53, 0) calc(var(--stripe-width) * 0.4),
-      rgba(255, 107, 53, var(--stripe-opacity)) calc(var(--stripe-width) * 0.4),
-      rgba(255, 107, 53, var(--stripe-opacity)) calc(var(--stripe-width) * 0.55),
-      rgba(255, 107, 53, 0) calc(var(--stripe-width) * 0.55),
-      rgba(255, 107, 53, 0) calc(var(--stripe-width) * 1)
-    );
-  background-size: 100% 100%, var(--stripe-width) var(--stripe-width);
+body {
+  background-color: var(--color-bg);
+  background-image:
+    /* Tiger stripe texture - bold diagonal bands */
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-10 20 L90 100' stroke='%23FF6B35' stroke-width='12' stroke-opacity='0.06' fill='none'/%3E%3Cpath d='M-10 50 L90 130' stroke='%23FF6B35' stroke-width='8' stroke-opacity='0.05' fill='none'/%3E%3Cpath d='M-10 80 L90 160' stroke='%23FF6B35' stroke-width='14' stroke-opacity='0.04' fill='none'/%3E%3C/svg%3E"),
+    /* Radial ambient glow from top */
+    radial-gradient(ellipse 120% 50% at 50% -20%, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+  background-size: 80px 80px, 100% 100%;
+  background-position: center top, center;
 }
 
-/* Subtle grain texture overlay */
+/* Grain texture */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.025'/%3E%3C/svg%3E");
-  opacity: 0.6;
+  z-index: 0;
+  opacity: 0.5;
 }
 
-/* ============================================
-   PAGE LEVEL - ensures content above patterns
-   ============================================ */
 #app {
   min-height: 100vh;
   position: relative;
@@ -147,100 +88,106 @@ body::after {
 }
 
 /* ============================================
-   BRAND HEADER BAR
-   Persistent top bar with logo + wordmark
+   PAGE HEADER - Bold hero gradient with logo
    ============================================ */
-.brand-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  height: 52px;
+.page-header {
+  position: relative;
+  padding: 72px 20px 40px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 107, 53, 0.12) 0%,
+    rgba(255, 107, 53, 0.04) 40%,
+    transparent 100%
+  );
+  border-bottom: 1px solid var(--color-border);
+}
+
+.page-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: 
+    /* Bold tiger stripe from top-left */
+    url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-20 0 L140 160' stroke='%23FF6B35' stroke-width='18' stroke-opacity='0.08' fill='none'/%3E%3Cpath d='M-20 40 L140 200' stroke='%23FF6B35' stroke-width='12' stroke-opacity='0.06' fill='none'/%3E%3C/svg%3E");
+  background-size: 120px;
+  pointer-events: none;
+}
+
+/* Brand bar inside header */
+.header-brand {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
-  background: linear-gradient(
-    180deg,
-    rgba(var(--bg-r, 9), var(--bg-g, 9), var(--bg-b, 9), 0.95) 0%,
-    rgba(var(--bg-r, 9), var(--bg-g, 9), var(--bg-b, 9), 0.80) 60%,
-    transparent 100%
-  );
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  pointer-events: none;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
 }
 
-.brand-logo {
+.header-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-  pointer-events: auto;
+  gap: 12px;
 }
 
-.brand-logo-img {
-  width: 32px;
-  height: 32px;
+.header-logo-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   object-fit: contain;
-  filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.4));
+  filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.6));
 }
 
-.brand-logo-text {
+.header-logo-text {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 2px;
 }
 
-.brand-logo-name {
+.header-logo-name {
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 800;
-  letter-spacing: 2px;
-  color: var(--color-text);
-  line-height: 1;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
 }
 
-.brand-logo-sub {
+.header-logo-sub {
   font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--color-text-secondary);
-  letter-spacing: 1px;
   font-weight: 400;
 }
 
-.brand-divider {
-  width: 1px;
-  height: 24px;
-  background: var(--color-border);
-}
-
-.brand-badge {
-  font-size: 11px;
-  color: var(--color-orange);
-  font-weight: 600;
-  letter-spacing: 0.5px;
+.header-disc {
+  font-size: 28px;
+  opacity: 0.6;
 }
 
 /* ============================================
-   LOGO WATERMARK (top-right, decorative)
+   LOGO WATERMARK - Top right corner
    ============================================ */
 .logo-watermark {
   position: fixed;
-  top: 8px;
-  right: 8px;
+  top: 12px;
+  right: 12px;
   z-index: 999;
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   pointer-events: none;
-  opacity: 0.9;
 }
 
 .logo-watermark img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.3));
+  filter: drop-shadow(0 0 16px rgba(255, 107, 53, 0.5));
+  opacity: 0.9;
 }
 
 /* ============================================
@@ -262,12 +209,6 @@ h1, h2, h3, h4 {
 /* ============================================
    Utility
    ============================================ */
-.container {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
 .text-orange { color: var(--color-orange); }
 .text-muted { color: var(--color-text-muted); }
 .text-secondary { color: var(--color-text-secondary); }
@@ -281,19 +222,11 @@ h1, h2, h3, h4 {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { opacity: 0.15; }
-  50% { opacity: 0.28; }
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.2; }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-.animate-in {
-  animation: fadeInUp 0.6s var(--ease-out) both;
-}
-
+.animate-in { animation: fadeInUp 0.6s var(--ease-out) both; }
 .delay-1 { animation-delay: 0.05s; }
 .delay-2 { animation-delay: 0.1s; }
 .delay-3 { animation-delay: 0.15s; }
@@ -305,24 +238,15 @@ h1, h2, h3, h4 {
    Vant Overrides
    ============================================ */
 .van-tabbar {
-  background: var(--color-surface) !important;
+  background: rgba(8, 8, 8, 0.9) !important;
   border-top: 1px solid var(--color-border) !important;
   backdrop-filter: blur(24px) saturate(1.2);
   -webkit-backdrop-filter: blur(24px) saturate(1.2);
 }
 
-.van-tabbar-item {
-  color: var(--color-text-muted) !important;
-}
-
-.van-tabbar-item--active {
-  color: var(--color-orange) !important;
-}
-
-.van-tabbar-item__text {
-  font-family: var(--font-body) !important;
-  font-weight: 500 !important;
-}
+.van-tabbar-item { color: var(--color-text-muted) !important; }
+.van-tabbar-item--active { color: var(--color-orange) !important; }
+.van-tabbar-item__text { font-family: var(--font-body) !important; font-weight: 500 !important; }
 
 .van-button--primary {
   background: var(--color-orange) !important;
@@ -346,28 +270,11 @@ h1, h2, h3, h4 {
   border: 1px solid var(--color-border) !important;
 }
 
-.van-cell-group--inset {
-  margin: 0 !important;
-  background: transparent !important;
-}
+.van-cell-group--inset { margin: 0 !important; background: transparent !important; }
 
-.van-cell-group--inset .van-cell {
-  margin-bottom: 6px !important;
-}
-
-.van-field__label {
-  color: var(--color-text-secondary) !important;
-  font-family: var(--font-body) !important;
-}
-
-.van-field__control {
-  color: var(--color-text) !important;
-  font-family: var(--font-body) !important;
-}
-
-.van-field__control::placeholder {
-  color: var(--color-text-muted) !important;
-}
+.van-field__label { color: var(--color-text-secondary) !important; font-family: var(--font-body) !important; }
+.van-field__control { color: var(--color-text) !important; font-family: var(--font-body) !important; }
+.van-field__control::placeholder { color: var(--color-text-muted) !important; }
 
 .van-dialog {
   background: var(--color-surface) !important;
@@ -382,108 +289,39 @@ h1, h2, h3, h4 {
   padding-top: 24px !important;
 }
 
-.van-dialog__confirm {
-  color: var(--color-orange) !important;
-}
+.van-dialog__confirm { color: var(--color-orange) !important; }
 
 .van-action-sheet {
   background: var(--color-surface) !important;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
 }
 
-.van-action-sheet__item {
-  color: var(--color-text) !important;
-  font-family: var(--font-body) !important;
-  background: transparent !important;
-}
+.van-action-sheet__item { color: var(--color-text) !important; background: transparent !important; }
 
 .van-popup {
   background: var(--color-surface) !important;
   border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
 }
 
-.van-picker {
-  background: var(--color-surface) !important;
-}
+.van-picker { background: var(--color-surface) !important; }
+.van-picker__toolbar { background: var(--color-surface) !important; }
+.van-picker__cancel, .van-picker__title, .van-picker__confirm { color: var(--color-orange) !important; }
 
-.van-picker__toolbar {
-  background: var(--color-surface) !important;
-}
+.van-empty__description { color: var(--color-text-muted) !important; }
+.van-tag { font-family: var(--font-body) !important; border-radius: var(--radius-sm) !important; }
+.van-notice-bar { background: var(--color-orange) !important; border-radius: var(--radius-md) !important; }
 
-.van-picker__cancel, .van-picker__title, .van-picker__confirm {
-  color: var(--color-orange) !important;
-  font-family: var(--font-body) !important;
-}
+.van-radio__label { color: var(--color-text-secondary) !important; }
+.van-radio--checked .van-radio__label { color: var(--color-orange) !important; }
+.van-radio__icon--checked .van-icon { background: var(--color-orange) !important; border-color: var(--color-orange) !important; }
 
-.van-picker-column__item {
-  color: var(--color-text) !important;
-  font-family: var(--font-body) !important;
-}
+.van-nav-bar { background: transparent !important; }
+.van-nav-bar__title { color: var(--color-text) !important; font-family: var(--font-display) !important; }
+.van-nav-bar__arrow { color: var(--color-text) !important; }
 
-.van-empty__description {
-  color: var(--color-text-muted) !important;
-  font-family: var(--font-body) !important;
-}
+.van-rate__icon { color: var(--color-border-hover) !important; }
+.van-rate__icon--full { color: var(--color-orange) !important; }
 
-.van-tag {
-  font-family: var(--font-body) !important;
-  border-radius: var(--radius-sm) !important;
-}
-
-.van-notice-bar {
-  background: var(--color-orange) !important;
-  font-family: var(--font-body) !important;
-  border-radius: var(--radius-md) !important;
-}
-
-.van-radio__label {
-  color: var(--color-text-secondary) !important;
-  font-family: var(--font-body) !important;
-}
-
-.van-radio--checked .van-radio__label {
-  color: var(--color-orange) !important;
-}
-
-.van-radio__icon--checked .van-icon {
-  background: var(--color-orange) !important;
-  border-color: var(--color-orange) !important;
-}
-
-.van-nav-bar {
-  background: transparent !important;
-}
-
-.van-nav-bar__title {
-  color: var(--color-text) !important;
-  font-family: var(--font-display) !important;
-}
-
-.van-nav-bar__arrow {
-  color: var(--color-text) !important;
-}
-
-.van-rate__icon {
-  color: var(--color-border-hover) !important;
-}
-
-.van-rate__icon--full {
-  color: var(--color-orange) !important;
-}
-
-.van-tab {
-  color: var(--color-text-secondary) !important;
-  font-family: var(--font-body) !important;
-}
-
-.van-tab--active {
-  color: var(--color-orange) !important;
-}
-
-.van-tabs__nav {
-  background: transparent !important;
-}
-
-.van-tabs__line {
-  background: var(--color-orange) !important;
-}
+.van-tab { color: var(--color-text-secondary) !important; }
+.van-tab--active { color: var(--color-orange) !important; }
+.van-tabs__line { background: var(--color-orange) !important; }
