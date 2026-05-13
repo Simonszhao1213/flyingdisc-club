@@ -41,6 +41,67 @@
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* === Light Mode (prefers-color-scheme: light) === */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #faf8f5;
+    --color-surface: #ffffff;
+    --color-surface-2: #f5f2ee;
+    --color-surface-3: #edeae4;
+    --color-border: rgba(0, 0, 0, 0.08);
+    --color-border-hover: rgba(0, 0, 0, 0.15);
+    --color-orange: #FF6B35;
+    --color-orange-light: #FF8F5E;
+    --color-orange-dark: #e55a22;
+    --color-orange-glow: rgba(255, 107, 53, 0.08);
+    --color-orange-glow-strong: rgba(255, 107, 53, 0.15);
+    --color-text: #1a1a1a;
+    --color-text-secondary: rgba(0, 0, 0, 0.5);
+    --color-text-muted: rgba(0, 0, 0, 0.28);
+    --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.08);
+    --shadow-orange: 0 8px 32px rgba(255, 107, 53, 0.18);
+    --shadow-glow: 0 0 80px rgba(255, 107, 53, 0.05);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    background-image:
+      url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M-10 20 L90 100' stroke='%23FF6B35' stroke-width='10' stroke-opacity='0.06' fill='none'/%3E%3Cpath d='M-10 50 L90 130' stroke='%23FF6B35' stroke-width='6' stroke-opacity='0.05' fill='none'/%3E%3Cpath d='M-10 80 L90 160' stroke='%23FF6B35' stroke-width='8' stroke-opacity='0.04' fill='none'/%3E%3C/svg%3E"),
+      radial-gradient(ellipse 120% 50% at 50% -10%, rgba(255, 107, 53, 0.08) 0%, transparent 70%);
+    background-size: 80px 80px, 100% 100%;
+    background-position: center top, center;
+  }
+
+  .van-tabbar {
+    background: rgba(250, 248, 245, 0.92) !important;
+    border-top: 1px solid var(--color-border) !important;
+  }
+
+  .logo-watermark img {
+    filter: drop-shadow(0 0 12px rgba(255, 107, 53, 0.35));
+    opacity: 0.7;
+  }
+
+  .hero-logo {
+    filter: drop-shadow(0 0 8px rgba(255, 107, 53, 0.4));
+  }
+
+  .hero-header {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 107, 53, 0.1) 0%,
+      rgba(255, 107, 53, 0.03) 45%,
+      transparent 100%
+    );
+  }
+
+  .brand-name {
+    background: linear-gradient(135deg, #1a1a1a 0%, rgba(0,0,0,0.5) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+}
+
 /* === Reset === */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -70,15 +131,20 @@ body {
   background-position: center top, center;
 }
 
-/* Grain texture */
+/* Grain texture - subtle film grain */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
   pointer-events: none;
   z-index: 0;
-  opacity: 0.5;
+}
+
+@media (prefers-color-scheme: light) {
+  body::after {
+    opacity: 0.015;
+  }
 }
 
 #app {
