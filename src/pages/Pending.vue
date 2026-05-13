@@ -1,68 +1,133 @@
 <template>
   <div class="pending-page">
-    <div class="icon">⏳</div>
-    <h2>注册申请已提交</h2>
-    <p>您的账号正在审核中<br/>请耐心等待队长审批</p>
-    <div class="status-card">
-      <div class="status-item">
-        <span class="label">手机号</span>
-        <span class="value">{{ user?.phone }}</span>
+    <div class="glow-orb"></div>
+
+    <div class="content animate-in">
+      <div class="icon-area">⏳</div>
+      <h1 class="title">申请已提交</h1>
+      <p class="desc">请等待队长审批通过后，即可使用完整功能</p>
+
+      <div class="info-card">
+        <div class="info-row">
+          <span class="info-label">当前状态</span>
+          <span class="info-value status pending">待审批</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">预计等待</span>
+          <span class="info-value">1-24 小时</span>
+        </div>
       </div>
-      <div class="status-item">
-        <span class="label">申请时间</span>
-        <span class="value">{{ user?.createdAt?.split('T')[0] }}</span>
-      </div>
-      <div class="status-item">
-        <span class="label">当前状态</span>
-        <span class="value status pending">待审核</span>
+
+      <div class="actions">
+        <van-button plain round @click="$router.push('/home')" class="btn-home">
+          返回首页
+        </van-button>
       </div>
     </div>
-    <van-button plain block @click="userStore.logout(); $router.push('/login')">
-      切换账号
-    </van-button>
   </div>
 </template>
 
 <script setup>
-import { useUserStore } from '../stores/user'
-const userStore = useUserStore()
-const { user } = userStore
 </script>
 
-<style  scoped>
+<style scoped>
 .pending-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #FF6B35 0%, #FF8F5E 100%);
+  background: var(--color-bg);
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding: 40px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-orb {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 107, 53, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.content {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  max-width: 360px;
+}
+
+.icon-area {
+  font-size: 80px;
+  margin-bottom: 24px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.desc {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.info-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
   padding: 24px;
-  color: white;
-  .icon { font-size: 80px; margin-bottom: 24px; }
-  h2 { font-size: 24px; margin-bottom: 12px; }
-  p { font-size: 15px; opacity: 0.85; text-align: center; line-height: 1.6; margin-bottom: 32px; }
-  .status-card {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    width: 100%;
-    margin-bottom: 24px;
-    .status-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #f0f0f0;
-      &:last-child { border-bottom: none; }
-      .label { color: #888; font-size: 14px; }
-      .value { color: #333; font-size: 14px; font-weight: 500; }
-      .status.pending { color: #FF6B35; }
-    }
-  }
-  :deep(.van-button--plain) {
-    background: rgba(255,255,255,0.2);
-    color: white;
-    border-color: rgba(255,255,255,0.5);
-  }
+  margin-bottom: 32px;
+  text-align: left;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+}
+
+.info-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.info-value.pending {
+  color: var(--color-orange);
+}
+
+.btn-home {
+  width: 100%;
+  height: 48px !important;
+  border-color: var(--color-border) !important;
+  color: var(--color-text-secondary) !important;
+  font-weight: 600 !important;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }
 </style>

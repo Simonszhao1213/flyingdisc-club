@@ -1,41 +1,69 @@
 <template>
   <div class="events-page">
-    <div class="tab-header">
-      <van-tabs v-model:active="activeTab" shrink>
-        <van-tab title="🏋️ 训练" name="training" />
-        <van-tab title="🏆 比赛" name="match" />
-      </van-tabs>
+    <div class="page-header">
+      <div class="header-glow"></div>
+      <h1 class="page-title animate-in">活动</h1>
+    </div>
+
+    <div class="tab-header animate-in delay-1">
+      <div class="tab-btn" :class="{ active: activeTab === 'training' }" @click="activeTab = 'training'">
+        🏋️ 训练
+      </div>
+      <div class="tab-btn" :class="{ active: activeTab === 'match' }" @click="activeTab = 'match'">
+        🏆 比赛
+      </div>
     </div>
 
     <div class="event-list">
-      <div class="event-card" v-for="event in filteredEvents" :key="event._id.$oid || event._id" @click="$router.push(`/events/${event._id.$oid || event._id}`)">
-        <div class="event-top">
-          <van-tag :type="event.type === 'training' ? 'primary' : 'warning'" size="medium">
-            {{ event.type === 'training' ? '🏋️ 训练' : '🏆 比赛' }}
-          </van-tag>
-          <span class="event-date">{{ event.date }}</span>
-        </div>
-        <div class="event-title">{{ event.title }}</div>
-        <div class="event-info">
-          <span>🕐 {{ event.time || '时间待定' }}</span>
-          <span>📍 {{ event.location || '地点待定' }}</span>
-        </div>
-        <div class="event-footer">
-          <span class="event-fee" :class="{ free: !event.fee }">
-            {{ event.fee > 0 ? `💰 ¥${event.fee}` : '✅ 免费' }}
-          </span>
-          <span class="event-attendees">
-            {{ event.attendees?.length || 0 }} {{ event.maxAttendees ? `/ ${event.maxAttendees}人` : '人已报名' }}
-          </span>
+      <div
+        class="event-card animate-in"
+        v-for="(event, i) in filteredEvents"
+        :key="event._id?.$oid || event._id"
+        :style="{ animationDelay: `${0.1 + i * 0.05}s` }"
+        @click="$router.push(`/events/${event.id || event._id}`)"
+      >
+        <div class="event-card-inner">
+          <div class="event-top">
+            <div class="event-type" :class="event.type">
+              {{ event.type === 'training' ? '🏋️训练' : '🔥比赛' }}
+            </div>
+            <span class="event-date">{{ event.date }}</span>
+          </div>
+
+          <div class="event-title">{{ event.title }}</div>
+
+          <div class="event-details">
+            <div class="detail-row" v-if="event.time">
+              <span class="detail-icon">🕐</span>
+              <span>{{ event.time }}</span>
+            </div>
+            <div class="detail-row" v-if="event.location">
+              <span class="detail-icon">📍</span>
+              <span>{{ event.location }}</span>
+            </div>
+          </div>
+
+          <div class="event-footer">
+            <div class="event-fee" :class="{ free: !event.fee }">
+              {{ event.fee > 0 ? `💰 ¥${event.fee}` : '✅ 免费报名' }}
+            </div>
+            <div class="event-attendees">
+              <span class="attendee-count">{{ event.attendees?.length || 0 }}</span>
+              <span class="attendee-text">人已报名</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <van-empty v-if="filteredEvents.length === 0" :description="activeTab === 'training' ? '暂无训练活动' : '暂无比赛活动'" />
+      <div v-if="filteredEvents.length === 0" class="empty-state">
+        <span class="empty-icon">🏃</span>
+        <span class="empty-text">暂无{{ activeTab === 'training' ? '训练' : '比赛' }}活动</span>
+      </div>
     </div>
 
-    <van-button round type="primary" class="fab" @click="$router.push('/home')" v-if="canPost">
-      ➕ 发布活动
-    </van-button>
+    <div class="fab" v-if="canPost" @click="$router.push('/home')">
+      ⚡
+    </div>
   </div>
 </template>
 
@@ -60,27 +88,208 @@ onMounted(async () => {
 })
 </script>
 
-<style  scoped>
-.events-page { min-height: 100vh; background: #f5f5f5; padding-bottom: 80px; }
-.tab-header { background: white; padding-top: 12px; }
-.event-list { padding: 12px; }
-.event-card {
-  background: white;
-  border-radius: 12px;
-  padding: 14px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  .event-top { display: flex; justify-content: space-between; margin-bottom: 8px; }
-  .event-title { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 8px; }
-  .event-info { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: #666; margin-bottom: 8px; }
-  .event-footer { display: flex; justify-content: space-between; align-items: center; }
-  .event-fee { font-size: 15px; font-weight: 600; color: #FF6B35; &.free { color: #07c160; } }
-  .event-attendees { font-size: 13px; color: #999; }
+<style scoped>
+.events-page {
+  min-height: 100vh;
+  background: var(--color-bg);
+  padding-bottom: 100px;
 }
+
+.page-header {
+  position: relative;
+  padding: 48px 20px 20px;
+  overflow: hidden;
+}
+
+.header-glow {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(255,107,53,0.12) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  position: relative;
+  z-index: 1;
+}
+
+.tab-header {
+  display: flex;
+  gap: 10px;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background: rgba(255, 107, 53, 0.12);
+  border-color: var(--color-orange);
+  color: var(--color-orange);
+}
+
+.event-list {
+  padding: 0 20px;
+}
+
+.event-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.event-card:active {
+  transform: scale(0.99);
+  border-color: var(--color-border-hover);
+}
+
+.event-card-inner {
+  padding: 18px;
+}
+
+.event-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.event-type {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+  background: rgba(255, 107, 53, 0.1);
+  color: var(--color-orange);
+  border: 1px solid rgba(255, 107, 53, 0.15);
+}
+
+.event-type.match {
+  background: rgba(251, 191, 36, 0.1);
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.15);
+}
+
+.event-date {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.event-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.event-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.detail-icon {
+  font-size: 14px;
+}
+
+.event-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 14px;
+  border-top: 1px solid var(--color-border);
+}
+
+.event-fee {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-orange);
+}
+
+.event-fee.free {
+  color: #34d399;
+}
+
+.event-attendees {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.attendee-count {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.attendee-text {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 60px 0;
+}
+
+.empty-icon { font-size: 48px; opacity: 0.4; }
+.empty-text { font-size: 14px; color: var(--color-text-muted); }
+
 .fab {
-  position: fixed; bottom: 24px; right: 24px;
-  width: 56px; height: 56px; border-radius: 28px;
-  background: #FF6B35; border: none;
-  font-size: 16px; box-shadow: 0 4px 12px rgba(255,107,53,0.4);
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  background: linear-gradient(135deg, var(--color-orange) 0%, var(--color-orange-dark) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  box-shadow: var(--shadow-orange);
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.2s var(--ease-spring);
+}
+
+.fab:active {
+  transform: scale(0.93);
 }
 </style>

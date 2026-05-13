@@ -1,19 +1,300 @@
-/* 全局样式 */
+/* ============================================
+   THE BLACK TIGERS - Design System
+   Dark Athletic Theme
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap');
+
+/* === CSS Variables === */
+:root {
+  /* Colors */
+  --color-bg: #0a0a0a;
+  --color-surface: #141414;
+  --color-surface-2: #1c1c1c;
+  --color-surface-3: #242424;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-orange: #FF6B35;
+  --color-orange-light: #FF8F5E;
+  --color-orange-dark: #cc4a1a;
+  --color-orange-glow: rgba(255, 107, 53, 0.15);
+  --color-orange-glow-strong: rgba(255, 107, 53, 0.3);
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.5);
+  --color-text-muted: rgba(255, 255, 255, 0.25);
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Outfit', sans-serif;
+
+  /* Spacing */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+
+  /* Shadows */
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-orange: 0 8px 32px rgba(255, 107, 53, 0.25);
+  --shadow-glow: 0 0 40px rgba(255, 107, 53, 0.1);
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* === Reset & Base === */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html, body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  background: #f5f5f5;
-  color: #333;
-  font-size: 14px;
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
 }
 
-/* 隐藏滚动条 */
-::-webkit-scrollbar {
-  display: none;
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+#app {
+  min-height: 100vh;
+  position: relative;
+}
+
+/* === Typography === */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* === Scrollbar === */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-border-hover); border-radius: 2px; }
+
+/* === Utility Classes === */
+.container {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.text-orange { color: var(--color-orange); }
+.text-muted { color: var(--color-text-muted); }
+.text-secondary { color: var(--color-text-secondary); }
+
+/* === Animations === */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px var(--color-orange-glow); }
+  50% { box-shadow: 0 0 40px var(--color-orange-glow-strong); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s var(--ease-out) both;
+}
+
+/* Stagger delays */
+.delay-1 { animation-delay: 0.05s; }
+.delay-2 { animation-delay: 0.1s; }
+.delay-3 { animation-delay: 0.15s; }
+.delay-4 { animation-delay: 0.2s; }
+.delay-5 { animation-delay: 0.25s; }
+.delay-6 { animation-delay: 0.3s; }
+
+/* === Vant Overrides === */
+/* Remove default Vant styles that look generic */
+.van-tabbar {
+  background: var(--color-surface) !important;
+  border-top: 1px solid var(--color-border) !important;
+}
+
+.van-tabbar-item {
+  color: var(--color-text-muted) !important;
+}
+
+.van-tabbar-item--active {
+  color: var(--color-orange) !important;
+}
+
+.van-tabbar-item__text {
+  font-family: var(--font-body) !important;
+  font-weight: 500 !important;
+}
+
+.van-button--primary {
+  background: var(--color-orange) !important;
+  border-color: var(--color-orange) !important;
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.van-button {
+  border-radius: var(--radius-md) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-cell {
+  background: var(--color-surface-2) !important;
+  border-radius: var(--radius-md) !important;
+  margin-bottom: 8px !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-cell-group--inset {
+  margin: 0 !important;
+  background: transparent !important;
+}
+
+.van-field__label {
+  color: var(--color-text-secondary) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-field__control {
+  color: var(--color-text) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-field__control::placeholder {
+  color: var(--color-text-muted) !important;
+}
+
+.van-dialog {
+  background: var(--color-surface) !important;
+  border-radius: var(--radius-xl) !important;
+  border: 1px solid var(--color-border) !important;
+}
+
+.van-dialog__header {
+  color: var(--color-text) !important;
+  font-family: var(--font-display) !important;
+  padding-top: 24px !important;
+}
+
+.van-dialog__confirm {
+  color: var(--color-orange) !important;
+}
+
+.van-action-sheet {
+  background: var(--color-surface) !important;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
+}
+
+.van-action-sheet__item {
+  color: var(--color-text) !important;
+  font-family: var(--font-body) !important;
+  background: transparent !important;
+}
+
+.van-popup {
+  background: var(--color-surface) !important;
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0 !important;
+}
+
+.van-picker {
+  background: var(--color-surface) !important;
+}
+
+.van-picker__toolbar {
+  background: var(--color-surface) !important;
+}
+
+.van-picker__cancel, .van-picker__title, .van-picker__confirm {
+  color: var(--color-orange) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-picker-column__item {
+  color: var(--color-text) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-empty__description {
+  color: var(--color-text-muted) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-tag {
+  font-family: var(--font-body) !important;
+  border-radius: var(--radius-sm) !important;
+}
+
+.van-notice-bar {
+  background: var(--color-orange) !important;
+  font-family: var(--font-body) !important;
+  border-radius: var(--radius-md) !important;
+}
+
+.van-radio-group {
+  display: flex;
+  gap: 12px;
+}
+
+.van-radio__label {
+  color: var(--color-text-secondary) !important;
+  font-family: var(--font-body) !important;
+}
+
+.van-radio--checked .van-radio__label {
+  color: var(--color-orange) !important;
+}
+
+.van-radio__icon--checked .van-icon {
+  background: var(--color-orange) !important;
+  border-color: var(--color-orange) !important;
+}
+
+/* Radio custom */
+.van-radio {
+  margin-right: 0;
 }
